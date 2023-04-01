@@ -14,7 +14,7 @@ function getComputerChoice() {
     return choice;
 }
 
-function playRound (playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
 
     let win = `You Win! ${playerSelection} beats ${computerSelection}`;
@@ -37,3 +37,37 @@ function playRound (playerSelection, computerSelection) {
             return `You Tie! ${playerSelection} was both selected`;
     }
 }
+
+function game() {
+    let player, computer, round, message, result;
+    let score = 0, record = "";
+
+    for (let i = 1; i <= 5; i++) {
+        player = window.prompt("Rock! Paper! Scissors! Shoot!");
+        computer = getComputerChoice();
+
+        message = playRound(player, computer);
+        round = message.charAt(4);
+        record += round;
+        
+        if (round === "W") {
+            score++;
+        } else if (round === "T") {
+            score += 0.5;
+        }
+
+        console.log(message)
+    }
+
+    if (score < 2.5) {
+        result = "Lose";
+    } else if (score === 2.5) {
+        result = "Tie";
+    } else if (score > 2.5) {
+        result = "Win";
+    }
+
+    console.log(`You ${result} the Game! ${record}`)
+}
+
+game();
