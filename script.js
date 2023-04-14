@@ -15,8 +15,6 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
-
     let win = `You Win! ${playerSelection} beats ${computerSelection}`;
     let lose = `You Lose! ${computerSelection} beats ${playerSelection}`;
 
@@ -39,14 +37,19 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-    let player, computer, message; // round, result;
+    const buttons = document.querySelectorAll("button");
+    let computer, message; // round, result;
     // let score = 0, record = "";
 
     // for (let i = 1; i <= 5; i++) {
-        player = window.prompt("Rock! Paper! Scissors! Shoot!");
-        computer = getComputerChoice();
-
-        message = playRound(player, computer);
+        buttons.forEach((button) => {
+            button.addEventListener('click', function(e) {
+                computer = getComputerChoice();
+                message = playRound(e.target.id, computer);
+                console.log(message)
+            });
+        });
+        
         // round = message.charAt(4);
         // record += round;
         
@@ -55,8 +58,6 @@ function game() {
         } else if (round === "T") {
             score += 0.5;
         } */
-
-        console.log(message)
     // }
 
     /* if (score < 2.5) {
