@@ -39,27 +39,27 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-    let player, computer, round, message, result;
-    let score = 0, record = "";
+    let player, computer, message; // round, result;
+    // let score = 0, record = "";
 
-    for (let i = 1; i <= 5; i++) {
+    // for (let i = 1; i <= 5; i++) {
         player = window.prompt("Rock! Paper! Scissors! Shoot!");
         computer = getComputerChoice();
 
         message = playRound(player, computer);
-        round = message.charAt(4);
-        record += round;
+        // round = message.charAt(4);
+        // record += round;
         
-        if (round === "W") {
+        /* if (round === "W") {
             score++;
         } else if (round === "T") {
             score += 0.5;
-        }
+        } */
 
         console.log(message)
-    }
+    // }
 
-    if (score < 2.5) {
+    /* if (score < 2.5) {
         result = "Lose";
     } else if (score === 2.5) {
         result = "Tie";
@@ -67,7 +67,7 @@ function game() {
         result = "Win";
     }
 
-    console.log(`You ${result} the Game! ${record}`)
+    console.log(`You ${result} the Game! ${record}`) */
 }
 
 game();
