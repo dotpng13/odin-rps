@@ -38,15 +38,17 @@ function playRound(playerSelection, computerSelection) {
 
 function game() {
     const buttons = document.querySelectorAll("button");
-    let computer, message; // round, result;
+    const results = document.querySelector("#result");
+    let computer, roundResult; // round, result;
     // let score = 0, record = "";
 
     // for (let i = 1; i <= 5; i++) {
         buttons.forEach((button) => {
-            button.addEventListener('click', function(e) {
+            button.addEventListener("click", function(e) {
                 computer = getComputerChoice();
-                message = playRound(e.target.id, computer);
-                console.log(message)
+                roundResult = document.createElement("p");
+                roundResult.textContent = playRound(e.target.id, computer);
+                results.appendChild(roundResult);
             });
         });
         
