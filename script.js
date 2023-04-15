@@ -1,3 +1,6 @@
+const buttons = document.querySelectorAll("button");
+let plrWin = 0, plrLoss = 0, plrTie = 0;
+
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3);
     switch (choice) {
@@ -36,41 +39,60 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function game() {
-    const buttons = document.querySelectorAll("button");
+function gameEvent(event) {
     const results = document.querySelector("#result");
-    let computer, roundResult; // round, result;
-    // let score = 0, record = "";
+    let computer, roundResult, roundCode, gameOutcome, gameResult;
 
-    // for (let i = 1; i <= 5; i++) {
-        buttons.forEach((button) => {
-            button.addEventListener("click", function(e) {
-                computer = getComputerChoice();
-                roundResult = document.createElement("p");
-                roundResult.textContent = playRound(e.target.id, computer);
-                results.appendChild(roundResult);
-            });
-        });
-        
-        // round = message.charAt(4);
-        // record += round;
-        
-        /* if (round === "W") {
-            score++;
-        } else if (round === "T") {
-            score += 0.5;
-        } */
-    // }
+    computer = getComputerChoice();
 
-    /* if (score < 2.5) {
-        result = "Lose";
-    } else if (score === 2.5) {
-        result = "Tie";
-    } else if (score > 2.5) {
-        result = "Win";
+    roundResult = document.createElement("p");
+    roundResult.textContent = playRound(event.target.id, computer);
+
+    roundCode = roundResult.textContent.charAt(4);
+
+    switch (roundCode) {
+        case "W":
+            plrWin++;
+            break;
+        case "L":
+            plrLoss++;
+            break;
+        case "T":
+            plrTie++;
+            break;
     }
 
-    console.log(`You ${result} the Game! ${record}`) */
+    roundResult.textContent += `, ${plrWin}-${plrLoss}-${plrTie}`;
+
+    results.appendChild(roundResult);
+
+    if ((2 * plrWin + plrTie) >= 10 || (2 * plrLoss + plrTie) >= 10) {
+        if (plrWin === plrLoss) {
+            gameOutcome = "Tie";
+        } else {
+            if (plrWin > plrLoss) {
+                gameOutcome = "Win";
+            } else {
+                gameOutcome = "Lose";
+            }
+        }
+
+        gameResult = document.createElement("h3");
+        gameResult.textContent = `You ${gameOutcome} the Game!
+        ${plrWin} WON, ${plrLoss} LOST, ${plrTie} TIED`;
+    
+        results.appendChild(gameResult);
+
+        buttons.forEach((button) => {
+            button.removeEventListener("click", gameEvent);
+        });
+    }
+}
+
+function game() {
+    buttons.forEach((button) => {
+        button.addEventListener("click", gameEvent);
+    });
 }
 
 game();
